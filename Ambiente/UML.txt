@@ -1,0 +1,129 @@
+@startuml ERP_Final_Diagram_Tipos_UML
+
+title Diagrama de Classes ERP (Tipos de Relacionamento)
+
+class Login {
+  - id : int
+  - username : String
+  - passHash : String
+  - permission : int
+  + getId() : int
+  + getPermission() : int
+}
+
+class Produto {
+  - id : int
+  - idLogin : int
+  - codigo : String
+  - descricao : String
+  - precoCompra : double
+  - precoVenda : double
+  + getPrecoVenda() : double
+}
+
+class Estoque {
+  - id : int
+  - idProduto : int
+  - quantidade : float
+  - unidade : String
+  + getQuantidade() : float
+}
+
+class Venda {
+  - id : int
+  - idLogin : int
+  - totalVenda : double
+  - status : String
+  - dataVenda : Timestamp
+}
+
+class ItensVendas {
+  - idVenda : int
+  - idProduto : int
+  - quantidade : float
+  - precoUnitario : double
+}
+
+class HistoricoVenda {
+  - id : int
+  - idVenda : int
+  - idLogin : int
+  - novoStatus : String
+}
+
+class Sessao {
+  - idUsuarioLogado : int
+  - username : String
+  - permissionLevel : int
+  + isLogado() : boolean
+}
+
+class Conexao {
+  {static} + conectar() : Connection
+  {static} + fechar(conn : Connection) : void
+}
+
+class VendaService {
+  + aprovarVendaTransacional(idVenda: int, idUsuario: int) : void
+}
+
+class RelatorioArquivo {
+  + gerarRelatorioCompleto() : void
+}
+
+class clsLogin {
+  + inserir(login : Login) : void
+  + buscarPorUsername(user : String) : Login
+}
+
+class clsProduto {
+  + buscarPorCodigo(codigo : String) : Produto
+}
+
+class clsEstoque {
+  + decrementarQuantidade(conn : Connection, id : int, qtd : float) : boolean
+}
+
+class clsVenda {
+  + buscarPorStatus(status : String) : List<Venda>
+  + atualizarStatus(conn : Connection, id : int, status : String) : void
+}
+
+class clsItensVendas {
+  + buscarItensPorVenda(idVenda : int) : List<ItensVendas>
+}
+
+class clsHistoricoVenda {
+  + inserir(conn : Connection, historico : HistoricoVenda) : void
+}
+
+class clsRelatorios {
+  + verificarEstoqueCritico(limite : float) : List<String>
+  + calcularMargemLucro() : List<String>
+}
+
+VendaService ..> clsVenda : Dependência
+VendaService ..> clsEstoque : Dependência
+VendaService ..> clsItensVendas : Dependência
+VendaService ..> clsHistoricoVenda : Dependência
+
+RelatorioArquivo ..> clsRelatorios : Dependência
+
+clsLogin ..> Conexao : Dependência
+clsProduto ..> Conexao : Dependência
+clsEstoque ..> Conexao : Dependência
+clsVenda ..> Conexao : Dependência
+clsItensVendas ..> Conexao : Dependência
+clsHistoricoVenda ..> Conexao : Dependência
+clsRelatorios ..> Conexao : Dependência
+
+Venda "1" *-- "*" ItensVendas : Composição
+Produto "1" o-- "1" Estoque : Agregação
+
+Login <.. Produto : Dependência
+Login <.. Venda : Dependência
+Produto <.. ItensVendas : Dependência
+Venda <.. HistoricoVenda : Dependência
+Login <.. HistoricoVenda : Dependência
+
+@enduml
