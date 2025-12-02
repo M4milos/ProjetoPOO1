@@ -1,0 +1,22 @@
+===============================================================
+=== RELATÓRIO GERENCIAL CONSOLIDADO ERP DE VENDAS E ESTOQUE ===
+===============================================================
+Data de Geração: 01/12/2025 20:29:32
+Gerado por: Sistema Java ERP
+---------------------------------------------------------------
+
+--- 1. ESTOQUE CRÍTICO (PONTO DE RESSUPRIMENTO: Qtd <= 10) ---
+CÓD: 019230 | DESC: Teste | QTD ATUAL: 3,00 CX
+---------------------------------------------------------------
+
+--- 2. TOP 10 PRODUTOS MAIS VENDIDOS (Por Quantidade) ---
+DESC: Teste | QTD VENDIDA: 10,00
+---------------------------------------------------------------
+
+--- 3. MARGENS DE LUCRO POR PRODUTO (%) ---
+DESC: Teste | Compra: R$10,30 | Venda: R$223,00 | MARGEM: 95,38%
+DESC: Teste | Compra: R$23,00 | Venda: R$245,00 | MARGEM: 90,61%
+DESC: TESTE | Compra: R$223,20 | Venda: R$323,10 | MARGEM: 30,92%
+---------------------------------------------------------------
+
+=== FIM DO RELATÓRIO ===
